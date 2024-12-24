@@ -1,0 +1,26 @@
+{
+  "name": "pkg-versions-to-xlsx",
+  "version": "0.0.1",
+  "description": "Takes path to a project and creates xlsx file filled with packages needed to be updated in this project.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michalwarchol/pkg-versions-to-xlsx.git"
+  },
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --watch",
+    "build": "webpack"
+  },
+  "keywords": [
+    "xlsx"
+  ],
+  "author": "Michał Warchoł",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.7.2",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1"
+  }
+}
