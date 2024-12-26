@@ -59,7 +59,7 @@ export default [
 				after: true,
 			}],
 
-			"no-console": "warn",
+			"no-console": "off",
 			"eol-last": ["error", "always"],
 			"@typescript-eslint/no-explicit-any": "warn",
 			"@typescript-eslint/explicit-function-return-type": "off",
