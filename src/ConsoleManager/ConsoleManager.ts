@@ -19,4 +19,12 @@ export class ConsoleManager {
   getOutputDir(): Promise<string> {
     return new Promise((resolve) => this.rl.question(messages.getOutputDir, resolve));
   }
+
+  displayInputDirError(): void {
+    console.log(messages.inputDirNotExists);
+  }
+
+  displayOutputDirError(): void {
+    console.log(messages.outputDirNotExists);
+  }
 }

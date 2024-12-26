@@ -1,4 +1,6 @@
 {
   "getInputDir": "Project directory: ",
-  "getOutputDir": "Output directory: "
+  "inputDirNotExists": "Error: Provided input directory does not exist.",
+  "getOutputDir": "Output directory: ",
+  "outputDirNotExists": "Error: Provided output directory does not exist."
 }
