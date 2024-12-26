@@ -1,6 +1,7 @@
 {
   "getInputDir": "Project directory: ",
   "inputDirNotExists": "Error: Provided input directory does not exist.",
+  "packageJsonNotExists": "Error: Package.json does not exist in provided directory.",
   "getOutputDir": "Output directory: ",
   "outputDirNotExists": "Error: Provided output directory does not exist."
 }

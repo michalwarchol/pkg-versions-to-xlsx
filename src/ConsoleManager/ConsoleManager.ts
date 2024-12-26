@@ -24,6 +24,10 @@ export class ConsoleManager {
     console.log(messages.inputDirNotExists);
   }
 
+  displayPackageJsonError(): void {
+    console.log(messages.packageJsonNotExists);
+  }
+
   displayOutputDirError(): void {
     console.log(messages.outputDirNotExists);
   }

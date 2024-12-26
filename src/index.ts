@@ -16,6 +16,14 @@ async function getInputDir() {
     return;
   }
 
+  const isPackageJsonExists = fileSystemManager.isPackageJsonExists(inputDir);
+  if (!isPackageJsonExists) {
+    consoleManager.displayPackageJsonError();
+    await getInputDir();
+
+    return;
+  }
+
   dataManager.setInputDir(inputDir);
 }
 
