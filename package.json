@@ -1,6 +1,6 @@
 {
   "name": "pkg-versions-to-xlsx",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Takes path to a project and creates xlsx file filled with packages needed to be updated in this project.",
   "repository": {
     "type": "git",
@@ -8,10 +8,12 @@
   },
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --watch",
     "build": "webpack",
-    "bump": "./versionBumper.sh"
+    "bump": "./versionBumper.sh",
+    "dev": "webpack --watch",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "xlsx"
@@ -19,6 +21,12 @@
   "author": "Michał Warchoł",
   "license": "ISC",
   "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.17.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.2",
+    "@typescript-eslint/parser": "^8.18.2",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0",
     "ts-loader": "^9.5.1",
     "typescript": "^5.7.2",
     "webpack": "^5.97.1",

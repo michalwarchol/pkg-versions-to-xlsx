@@ -1,5 +1,5 @@
-import { ConsoleManager } from "./ConsoleManager";
-import { DataManager } from "./DataManager";
+import { ConsoleManager } from './ConsoleManager';
+import { DataManager } from './DataManager';
 
 async function run() {
   const consoleManager = new ConsoleManager();
