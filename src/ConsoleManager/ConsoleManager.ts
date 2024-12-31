@@ -31,4 +31,12 @@ export class ConsoleManager {
   displayOutputDirError(): void {
     console.log(messages.outputDirNotExists);
   }
+
+  displayErrorOnCommand(error: string): void {
+    console.error(messages.errorExecuningCommand, error);
+  }
+
+  displayErrorOnJsonParse(error: string): void {
+    console.error(messages.jsonParseError, error);
+  }
 }

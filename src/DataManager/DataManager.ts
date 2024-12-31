@@ -1,3 +1,4 @@
+import { TIOData } from "./DataManager.types";
 
 export class DataManager {
   private inputDir: string;
@@ -22,5 +23,12 @@ export class DataManager {
 
   public setOutputDir(value: string): void {
     this.outputDir = value;
+  }
+
+  public getIOData(): TIOData {
+    return {
+      inputDir: this.inputDir,
+      outputDir: this.outputDir,
+    }
   }
 }
