@@ -1,3 +1,4 @@
+import { CommandManager } from './CommandManager';
 import { ConsoleManager } from './ConsoleManager';
 import { DataManager } from './DataManager';
 import { FileSystemManager } from './FileSystemManager';
@@ -37,12 +38,15 @@ async function getOutputDir() {
     return;
   }
 
-  dataManager.setInputDir(outputDir);
+  dataManager.setOutputDir(outputDir);
 }
 
 async function run() {
   await getInputDir();
   await getOutputDir();
+
+  const commandManager = new CommandManager(dataManager.getIOData());
+  commandManager.setPackageManager(); // TODO in E-8: Handle packageManager not found error
 
   process.exit(0);
 }
