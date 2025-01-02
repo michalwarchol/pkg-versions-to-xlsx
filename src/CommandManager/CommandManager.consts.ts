@@ -1,5 +1,1 @@
-export enum EPackageManagers {
-  npm = 'npm',
-  pnpm = 'pnpm',
-  yarn = 'yarn',
-}
+export const OUTDATED_COMMAND = 'npm outdated --json';
