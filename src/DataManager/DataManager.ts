@@ -1,12 +1,14 @@
-import { TIOData } from "./DataManager.types";
+import { TIOData, TJsonData, TOutdatedPackageData } from "./DataManager.types";
 
 export class DataManager {
   private inputDir: string;
   private outputDir: string;
+  private packagesData: TOutdatedPackageData[];
 
   constructor() {
     this.inputDir = '';
     this.outputDir = '';
+    this.packagesData = [];
   }
 
   public getInputDir() {
@@ -30,5 +32,19 @@ export class DataManager {
       inputDir: this.inputDir,
       outputDir: this.outputDir,
     }
+  }
+
+  public persistJsonData(data: TJsonData): void {
+    const keys = Object.keys(data);
+    const packagesData: TOutdatedPackageData[] = [];
+    keys.forEach((packageName) => {
+      packagesData.push({
+        name: packageName,
+        current: data[packageName].current,
+        latest: data[packageName].latest,
+      });
+    });
+
+    this.packagesData = packagesData;
   }
 }

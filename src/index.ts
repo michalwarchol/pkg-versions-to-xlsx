@@ -47,6 +47,7 @@ async function run() {
 
   const commandManager = new CommandManager(dataManager.getIOData());
   const data = commandManager.getRawPackagesData();
+  dataManager.persistJsonData(data);
 
   process.exit(0);
 }
