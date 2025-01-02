@@ -46,7 +46,7 @@ async function run() {
   await getOutputDir();
 
   const commandManager = new CommandManager(dataManager.getIOData());
-  commandManager.setPackageManager(); // TODO in E-8: Handle packageManager not found error
+  const data = commandManager.getRawPackagesData();
 
   process.exit(0);
 }
