@@ -13,8 +13,15 @@ export type TJsonData = {
   }
 };
 
+export enum EUpdateType {
+  patch = 'PATCH',
+  minor = 'MINOR',
+  major = 'MAJOR'
+};
+
 export type TOutdatedPackageData = {
   name: string;
   current: string;
   latest: string;
+  updateType: EUpdateType;
 };
