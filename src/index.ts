@@ -50,9 +50,10 @@ async function run() {
   const data = commandManager.getRawPackagesData();
   dataManager.persistJsonData(data);
 
+  const projectName = fileSystemManager.readProjectNameFromPackageJson(dataManager.getInputDir());
   const xlsxFilename = `${TEMP_FILE_PREFIX}${Date.now()}${TEMP_FILE_POSTFIX}`;
   fileSystemManager.createWorkingXlsxFile(xlsxFilename);
-  await fileSystemManager.writeDataToXlsx(xlsxFilename, dataManager.getXlsxData());
+  await fileSystemManager.writeDataToXlsx(xlsxFilename, projectName, dataManager.getXlsxData());
 
   process.exit(0);
 }
