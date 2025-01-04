@@ -51,8 +51,8 @@ async function run() {
   dataManager.persistJsonData(data);
 
   const xlsxFilename = `${TEMP_FILE_PREFIX}${Date.now()}${TEMP_FILE_POSTFIX}`;
-  dataManager.setWorkingXlsxFilename(xlsxFilename);
   fileSystemManager.createWorkingXlsxFile(xlsxFilename);
+  await fileSystemManager.writeDataToXlsx(xlsxFilename, dataManager.getXlsxData());
 
   process.exit(0);
 }
