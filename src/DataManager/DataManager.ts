@@ -4,11 +4,13 @@ export class DataManager {
   private inputDir: string;
   private outputDir: string;
   private packagesData: TOutdatedPackageData[];
+  private workingXlsxFilename: string;
 
   constructor() {
     this.inputDir = '';
     this.outputDir = '';
     this.packagesData = [];
+    this.workingXlsxFilename = '';
   }
 
   public getInputDir() {
@@ -25,6 +27,10 @@ export class DataManager {
 
   public setOutputDir(value: string): void {
     this.outputDir = value;
+  }
+
+  public setWorkingXlsxFilename(filename: string): void {
+    this.workingXlsxFilename = filename;
   }
 
   public getIOData(): TIOData {
