@@ -39,7 +39,7 @@ export class FileSystemManager {
 
     fs.cpSync(
       path.join(__dirname, 'resources', TEMPALTE_XLSX), // source
-      path.join(__dirname, TEMP_DIR, filename), // desctination
+      path.join(__dirname, TEMP_DIR, filename), // destination
     );
   }
 
@@ -83,5 +83,16 @@ export class FileSystemManager {
     const parsedData = JSON.parse(file.toString());
 
     return parsedData.name;
+  }
+
+  public copyFileToOutputDir(filename: string, outputDir: string): void {
+    fs.cpSync(
+      path.join(__dirname, TEMP_DIR, filename), // destination
+      path.join(outputDir, filename), // source
+    );
+  }
+
+  public clear(): void {
+    fs.rmSync(path.join(__dirname, TEMP_DIR), { recursive: true });
   }
 }

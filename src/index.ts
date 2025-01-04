@@ -2,7 +2,6 @@ import { CommandManager } from './CommandManager';
 import { ConsoleManager } from './ConsoleManager';
 import { DataManager } from './DataManager';
 import { FileSystemManager } from './FileSystemManager';
-import { TEMP_FILE_POSTFIX, TEMP_FILE_PREFIX } from './FileSystemManager/FileSystemManager.consts';
 
 const consoleManager = new ConsoleManager();
 const dataManager = new DataManager();
@@ -51,9 +50,11 @@ async function run() {
   dataManager.persistJsonData(data);
 
   const projectName = fileSystemManager.readProjectNameFromPackageJson(dataManager.getInputDir());
-  const xlsxFilename = `${TEMP_FILE_PREFIX}${Date.now()}${TEMP_FILE_POSTFIX}`;
+  const xlsxFilename = dataManager.createXlsxFileName();
   fileSystemManager.createWorkingXlsxFile(xlsxFilename);
   await fileSystemManager.writeDataToXlsx(xlsxFilename, projectName, dataManager.getXlsxData());
+  fileSystemManager.copyFileToOutputDir(xlsxFilename, dataManager.getOutputDir());
+  fileSystemManager.clear();
 
   process.exit(0);
 }
