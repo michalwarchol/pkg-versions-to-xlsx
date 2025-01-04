@@ -1,7 +1,19 @@
 import fs from 'fs';
 import path from 'path';
+import exceljs from 'exceljs';
 
-import { PACKAGE_JSON, TEMP_DIR, TEMPALTE_XLSX } from './FileSystemManager.consts';
+import {
+  PACKAGE_JSON,
+  TEMP_DIR,
+  TEMPALTE_XLSX,
+  WORKSHEET_NAME,
+  PACKAGE_COLUMN,
+  CURRENT_VERSION_COLUMN,
+  LATEST_VERSION_COLUMN,
+  UPDATE_TYPE_COLUMN,
+  START_ROW,
+} from './FileSystemManager.consts';
+import { TOutdatedPackageData } from '../DataManager/DataManager.types';
 
 export class FileSystemManager {
   constructor() { }
@@ -27,5 +39,23 @@ export class FileSystemManager {
       path.join(__dirname, 'resources', TEMPALTE_XLSX), // source
       path.join(__dirname, TEMP_DIR, filename), // desctination
     );
+  }
+
+  public async writeDataToXlsx(filename: string, data: TOutdatedPackageData[]): Promise<void> {
+    const pathToFile = path.join(__dirname, TEMP_DIR, filename);
+    const workbook = new exceljs.Workbook();
+    await workbook.xlsx.readFile(pathToFile);
+    const worksheet = workbook.getWorksheet(1) || workbook.addWorksheet(WORKSHEET_NAME);
+
+    let i = START_ROW;
+    data.forEach((packageData) => {
+      worksheet.getCell(`${PACKAGE_COLUMN}${i}`).value = packageData.name;
+      worksheet.getCell(`${CURRENT_VERSION_COLUMN}${i}`).value = packageData.current;
+      worksheet.getCell(`${LATEST_VERSION_COLUMN}${i}`).value = packageData.latest;
+      worksheet.getCell(`${UPDATE_TYPE_COLUMN}${i}`).value = packageData.updateType;
+      i += 1;
+    });
+
+    await workbook.xlsx.writeFile(pathToFile);
   }
 }
