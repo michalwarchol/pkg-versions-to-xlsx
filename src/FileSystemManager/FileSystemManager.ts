@@ -7,6 +7,8 @@ import {
   TEMP_DIR,
   TEMPALTE_XLSX,
   WORKSHEET_NAME,
+  PROJECT_NAME_CELL,
+  CURRENT_DATE_CELL,
   PACKAGE_COLUMN,
   CURRENT_VERSION_COLUMN,
   LATEST_VERSION_COLUMN,
@@ -41,12 +43,23 @@ export class FileSystemManager {
     );
   }
 
-  public async writeDataToXlsx(filename: string, data: TOutdatedPackageData[]): Promise<void> {
+  public async writeDataToXlsx(
+    filename: string,
+    projectName: string,
+    data: TOutdatedPackageData[],
+  ): Promise<void> {
     const pathToFile = path.join(__dirname, TEMP_DIR, filename);
     const workbook = new exceljs.Workbook();
     await workbook.xlsx.readFile(pathToFile);
     const worksheet = workbook.getWorksheet(1) || workbook.addWorksheet(WORKSHEET_NAME);
 
+    // write project name
+    worksheet.getCell(PROJECT_NAME_CELL).value = projectName;
+
+    // write current date
+    worksheet.getCell(CURRENT_DATE_CELL).value = new Date();
+
+    // write packages data
     let i = START_ROW;
     data.forEach((packageData) => {
       worksheet.getCell(`${PACKAGE_COLUMN}${i}`).value = packageData.name;
@@ -56,6 +69,19 @@ export class FileSystemManager {
       i += 1;
     });
 
+    //save xlsx
     await workbook.xlsx.writeFile(pathToFile);
+  }
+
+  public readProjectNameFromPackageJson(dir: string): string {
+    const isPackageJsonExists = this.isPackageJsonExists(dir);
+    if (!isPackageJsonExists) {
+      return '';
+    }
+
+    const file = fs.readFileSync(path.join(dir, PACKAGE_JSON));
+    const parsedData = JSON.parse(file.toString());
+
+    return parsedData.name;
   }
 }
