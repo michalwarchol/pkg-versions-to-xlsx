@@ -2,6 +2,7 @@ import { CommandManager } from './CommandManager';
 import { ConsoleManager } from './ConsoleManager';
 import { DataManager } from './DataManager';
 import { FileSystemManager } from './FileSystemManager';
+import { TEMP_FILE_POSTFIX, TEMP_FILE_PREFIX } from './FileSystemManager/FileSystemManager.consts';
 
 const consoleManager = new ConsoleManager();
 const dataManager = new DataManager();
@@ -48,6 +49,10 @@ async function run() {
   const commandManager = new CommandManager(dataManager.getIOData());
   const data = commandManager.getRawPackagesData();
   dataManager.persistJsonData(data);
+
+  const xlsxFilename = `${TEMP_FILE_PREFIX}${Date.now()}${TEMP_FILE_POSTFIX}`;
+  dataManager.setWorkingXlsxFilename(xlsxFilename);
+  fileSystemManager.createWorkingXlsxFile(xlsxFilename);
 
   process.exit(0);
 }
