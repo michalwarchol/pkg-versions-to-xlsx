@@ -1,3 +1,4 @@
+import { TEMP_FILE_POSTFIX, TEMP_FILE_PREFIX } from "./DataManager.consts";
 import { EUpdateType, TIOData, TJsonData, TOutdatedPackageData } from "./DataManager.types";
 
 export class DataManager {
@@ -66,5 +67,9 @@ export class DataManager {
 
   public getXlsxData(): TOutdatedPackageData[] {
     return this.packagesData;
+  }
+
+  public createXlsxFileName(): string {
+    return `${TEMP_FILE_PREFIX}${Date.now()}${TEMP_FILE_POSTFIX}`;
   }
 }
