@@ -1,5 +1,10 @@
+<h1 style="text-align:center; border: none;">pkg-versions-to-xlsx</h1>
+
+# Description
+This repository is useful if you want to check outdated packages and save this list to xlsx file. All you need to do is to insert project directory and a directory where the xlsx file should be generated.
+
 # Requirements
-- node >= 18.18.2
+- node >= 18.18
 
 # How to run
 <ol>
@@ -20,16 +25,10 @@
   </li>
   <li>
     <p>Install required dependencies:</p>
-    <p>using npm:</p>
-    <code>npm i</code>
-    <p>or using yarn:</p>
-    <code>yarn</code>
-    <p>or using pnpm:</p>
-    <code>pnpm i</code>
-    <p>or using bun:</p>
-    <code>bun install</code>
-    </br>
-    </br>
+    <p>using npm: <code>npm i</code></p>
+    <p>or using yarn: <code>yarn</code></p>
+    <p>or using pnpm: <code>pnpm i</code></p>
+    <p>or using bun: <code>bun install</code></p>
   </li>
   <li>
     <p>Run build command:</p>
