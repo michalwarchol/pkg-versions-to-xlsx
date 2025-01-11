@@ -1,3 +1,5 @@
+import { ConsoleManager } from "../ConsoleManager";
+import { FileSystemManager } from "../FileSystemManager";
 import { TEMP_FILE_POSTFIX, TEMP_FILE_PREFIX } from "./DataManager.consts";
 import { EUpdateType, TIOData, TJsonData, TOutdatedPackageData } from "./DataManager.types";
 
@@ -5,11 +7,15 @@ export class DataManager {
   private inputDir: string;
   private outputDir: string;
   private packagesData: TOutdatedPackageData[];
+  private fileSystemManager: FileSystemManager;
+  private consoleManager: ConsoleManager;
 
   constructor() {
     this.inputDir = '';
     this.outputDir = '';
     this.packagesData = [];
+    this.fileSystemManager = new FileSystemManager();
+    this.consoleManager = new ConsoleManager();
   }
 
   public getInputDir() {
@@ -20,12 +26,38 @@ export class DataManager {
     return this.outputDir;
   }
 
-  public setInputDir(value: string): void {
-    this.inputDir = value;
+  public async setInputDir(): Promise<void> {
+    const inputDir = await this.consoleManager.getInputDir();
+    const isInputDirExists = this.fileSystemManager.isDirExists(inputDir);
+    if (!isInputDirExists) {
+      this.consoleManager.displayInputDirError();
+      await this.setInputDir();
+
+      return;
+    }
+
+    const isPackageJsonExists = this.fileSystemManager.isPackageJsonExists(inputDir);
+    if (!isPackageJsonExists) {
+      this.consoleManager.displayPackageJsonError();
+      await this.setInputDir();
+
+      return;
+    }
+
+    this.inputDir = inputDir;
   }
 
-  public setOutputDir(value: string): void {
-    this.outputDir = value;
+  public async setOutputDir(): Promise<void> {
+    const outputDir = await this.consoleManager.getOutputDir();
+    const isOutputDirExists = this.fileSystemManager.isDirExists(outputDir);
+    if (!isOutputDirExists) {
+      this.consoleManager.displayOutputDirError();
+      await this.setOutputDir();
+
+      return;
+    }
+
+    this.outputDir = outputDir;
   }
 
   public getIOData(): TIOData {
