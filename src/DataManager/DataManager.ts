@@ -1,7 +1,7 @@
-import { ConsoleManager } from "../ConsoleManager";
-import { FileSystemManager } from "../FileSystemManager";
-import { TEMP_FILE_POSTFIX, TEMP_FILE_PREFIX } from "./DataManager.consts";
-import { EUpdateType, TIOData, TJsonData, TOutdatedPackageData } from "./DataManager.types";
+import { ConsoleManager } from '../ConsoleManager';
+import { FileSystemManager } from '../FileSystemManager';
+import { TEMP_FILE_POSTFIX, TEMP_FILE_PREFIX } from './DataManager.consts';
+import { EUpdateType, TIOData, TJsonData, TOutdatedPackageData } from './DataManager.types';
 
 export class DataManager {
   private inputDir: string;
@@ -26,35 +26,26 @@ export class DataManager {
     return this.outputDir;
   }
 
-  public async setInputDir(): Promise<void> {
-    const inputDir = await this.consoleManager.getInputDir();
-    const isInputDirExists = this.fileSystemManager.isDirExists(inputDir);
-    if (!isInputDirExists) {
+  public setInputDir(inputDir: string): void {
+    if (!this.fileSystemManager.isDirExists(inputDir)) {
       this.consoleManager.displayInputDirError();
-      await this.setInputDir();
-
-      return;
+      process.exit(1);
     }
 
-    const isPackageJsonExists = this.fileSystemManager.isPackageJsonExists(inputDir);
-    if (!isPackageJsonExists) {
+    if (!this.fileSystemManager.isPackageJsonExists(inputDir)) {
       this.consoleManager.displayPackageJsonError();
-      await this.setInputDir();
 
-      return;
+      process.exit(1);
     }
 
     this.inputDir = inputDir;
   }
 
-  public async setOutputDir(): Promise<void> {
-    const outputDir = await this.consoleManager.getOutputDir();
-    const isOutputDirExists = this.fileSystemManager.isDirExists(outputDir);
-    if (!isOutputDirExists) {
+  public setOutputDir(outputDir: string): void {
+    if (!this.fileSystemManager.isDirExists(outputDir)) {
       this.consoleManager.displayOutputDirError();
-      await this.setOutputDir();
 
-      return;
+      process.exit(1);
     }
 
     this.outputDir = outputDir;
@@ -64,7 +55,7 @@ export class DataManager {
     return {
       inputDir: this.inputDir,
       outputDir: this.outputDir,
-    }
+    };
   }
 
   private establishUpdateType(current: string, latest: string): EUpdateType {

@@ -1,23 +1,30 @@
-import readline from 'readline';
+import { Command } from 'commander';
 
 import messages from './messages.json';
+import { CommandOptions } from './ConsoleManager.types';
 
 export class ConsoleManager {
-  private rl: readline.Interface;
+  constructor() {}
 
-  constructor() {
-    this.rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-  }
+  getProgramOptions(): CommandOptions {
+    const program = new Command();
 
-  getInputDir(): Promise<string> {
-    return new Promise((resolve) => this.rl.question(messages.getInputDir, resolve));
-  }
+    program
+      .name('pkg-versions-to-xlsx')
+      .description('Export your package versions to xlsx file')
+      .option(
+        '-i, --input <input>',
+        'The project directory from which the packages will be taken.',
+        './',
+      )
+      .option(
+        '-o, --output <output>',
+        'Destination directory, where xlsx file will be generated.',
+        './',
+      );
 
-  getOutputDir(): Promise<string> {
-    return new Promise((resolve) => this.rl.question(messages.getOutputDir, resolve));
+    program.parse();
+    return program.opts<CommandOptions>();
   }
 
   displayInputDirError(): void {
