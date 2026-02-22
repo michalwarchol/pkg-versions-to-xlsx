@@ -1,6 +1,6 @@
 {
   "name": "pkg-versions-to-xlsx",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Takes path to a project and creates xlsx file filled with packages needed to be updated in this project.",
   "repository": {
     "type": "git",
