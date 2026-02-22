@@ -1,13 +1,17 @@
 import { CommandManager } from './CommandManager';
 import { DataManager } from './DataManager';
 import { FileSystemManager } from './FileSystemManager';
+import { ConsoleManager } from './ConsoleManager';
 
 const fileSystemManager = new FileSystemManager();
 
 async function run() {
   const dataManager = new DataManager();
-  await dataManager.setInputDir();
-  await dataManager.setOutputDir();
+  const consoleManager = new ConsoleManager();
+
+  const options = consoleManager.getProgramOptions();
+  dataManager.setInputDir(options.input);
+  dataManager.setOutputDir(options.output);
 
   const commandManager = new CommandManager(dataManager.getIOData());
   const data = commandManager.getRawPackagesData();
